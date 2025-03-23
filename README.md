@@ -1,10 +1,12 @@
 # pixelpatch
 
 PNGファイルの特定領域を別のPNGファイルに上書きするシンプルなツールです。
+切り出した画像を回転させて貼り付けることも可能です。
 
 ## 機能
 
 - PNG画像から指定した領域を切り出し
+- 切り出した画像の回転（0度、90度、180度、270度）
 - 別のPNG画像の指定位置に上書き
 - 画像サイズは任意（範囲チェック機能付き）
 
@@ -19,7 +21,7 @@ npm install
 ## 使用方法
 
 ```bash
-node index.js input1.png input2.png output.png [sourceX] [sourceY] [width] [height] [destX] [destY]
+node index.js input1.png input2.png output.png [sourceX] [sourceY] [width] [height] [destX] [destY] [rotate]
 ```
 
 ### パラメータ
@@ -37,6 +39,7 @@ node index.js input1.png input2.png output.png [sourceX] [sourceY] [width] [heig
 | height     | 4           | 切り出し高さ |
 | destX      | 0           | 貼り付け先X座標 |
 | destY      | 0           | 貼り付け先Y座標 |
+| rotate     | 0           | 回転角度（0, 90, 180, 270のいずれか） |
 
 ### 例
 
@@ -47,11 +50,14 @@ node index.js sprite1.png sprite2.png result.png
 
 パラメータを指定：
 ```bash
-node index.js sprite1.png sprite2.png result.png 10 20 32 32 5 5
+node index.js sprite1.png sprite2.png result.png 10 20 32 32 5 5 90
 ```
 
 この例では、sprite1.pngの(10,20)から32x32ピクセルの領域を切り出し、
-sprite2.pngの(5,5)に上書きした結果がresult.pngとして保存されます。
+90度回転させてsprite2.pngの(5,5)に上書きした結果がresult.pngとして保存されます。
+
+注意：90度または270度回転する場合、貼り付け先の必要なサイズが変わります
+（幅と高さが入れ替わります）。
 
 ## エラー処理
 
@@ -59,8 +65,9 @@ sprite2.pngの(5,5)に上書きした結果がresult.pngとして保存されま
 
 - コマンドライン引数が不足している場合
 - パラメータが不正な値の場合（負の数や数値以外）
+- 回転角度が不正な値の場合（0, 90, 180, 270以外）
 - 指定した領域が入力画像1の範囲外の場合
-- 指定した領域が入力画像2の範囲外の場合
+- 指定した領域（回転後）が入力画像2の範囲外の場合
 - 画像の読み込みや保存に失敗した場合
 
 ## 依存パッケージ
