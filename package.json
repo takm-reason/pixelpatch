@@ -1,0 +1,10 @@
+{
+    "name": "pixelpatch",
+    "version": "1.0.0",
+    "description": "画像の一部を切り出して別の画像に上書きするツール",
+    "main": "index.js",
+    "type": "module",
+    "dependencies": {
+        "jimp": "^0.22.10"
+    }
+}
