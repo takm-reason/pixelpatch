@@ -19,36 +19,46 @@ npm install
 ## 使用方法
 
 ```bash
-node index.js input1.png input2.png output.png
+node index.js input1.png input2.png output.png [sourceX] [sourceY] [width] [height] [destX] [destY]
 ```
 
 ### パラメータ
 
-スクリプト内で以下のパラメータを定義しています：
+すべてのパラメータは0以上の整数である必要があります。
 
-```javascript
-sourceX = 0    // 切り出し開始X座標
-sourceY = 8    // 切り出し開始Y座標
-width = 16     // 切り出し幅
-height = 4     // 切り出し高さ
-destX = 0      // 貼り付け先X座標
-destY = 0      // 貼り付け先Y座標
-```
+| パラメータ | デフォルト値 | 説明 |
+|------------|--------------|------|
+| input1.png | （必須）     | 切り出し元のPNG画像 |
+| input2.png | （必須）     | 上書き先のPNG画像 |
+| output.png | （必須）     | 出力先のパス |
+| sourceX    | 0           | 切り出し開始X座標 |
+| sourceY    | 8           | 切り出し開始Y座標 |
+| width      | 16          | 切り出し幅 |
+| height     | 4           | 切り出し高さ |
+| destX      | 0           | 貼り付け先X座標 |
+| destY      | 0           | 貼り付け先Y座標 |
 
 ### 例
 
+デフォルト値を使用：
 ```bash
 node index.js sprite1.png sprite2.png result.png
 ```
 
-これにより、sprite1.pngの(0,8)から16x4ピクセルの領域を切り出し、
-sprite2.pngの(0,0)に上書きした結果がresult.pngとして保存されます。
+パラメータを指定：
+```bash
+node index.js sprite1.png sprite2.png result.png 10 20 32 32 5 5
+```
+
+この例では、sprite1.pngの(10,20)から32x32ピクセルの領域を切り出し、
+sprite2.pngの(5,5)に上書きした結果がresult.pngとして保存されます。
 
 ## エラー処理
 
 以下の場合にエラーメッセージを表示します：
 
 - コマンドライン引数が不足している場合
+- パラメータが不正な値の場合（負の数や数値以外）
 - 指定した領域が入力画像1の範囲外の場合
 - 指定した領域が入力画像2の範囲外の場合
 - 画像の読み込みや保存に失敗した場合
